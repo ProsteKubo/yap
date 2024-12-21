@@ -19,6 +19,7 @@ Welcome to the official documentation for YAP (Yet Another Programming Language)
 ---
 
 ### Introduction
+
 YAP is a new programming language designed to be simple, efficient, and easy to use.
 Written entirely in C, it utilizes CMake and Clang for building and compilation.
 It has 3 different engines for execution: interpreter, vm(runtime) compiler, and LLVM compiler.
