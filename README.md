@@ -45,12 +45,14 @@ After building, you can run the YAP interpreter or compiler (depending on implem
 ./yap <source_file>.yap
 ```
 
+### Documentation
+
+- [Examples](docs/example.md): Example YAP programs and usage.
+- [Roadmap](https://yaplan.youtrack.cloud/projects/0-1): Planned features and milestones.
+
 ### Contributing
 
-Contributions are welcome! Please follow these steps to contribute:
-1. Fork the repository.
-2. Create a new branch for your feature or fix.
-3. Submit a pull request with a detailed description of your changes.
+Because this is my bachelor project, I am not accepting any contributions at this time. However, feel free to fork the repository and make your own changes!
 
 ### License
 
