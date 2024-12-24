@@ -91,6 +91,7 @@ Instructions on setting up YAP:
 - - `let` is a mutable variable.
 - - `const` is a constant which can be mutated but cannot be reassigned.
 - - `readonly` is an immutable variable that can only be assigned once.
+- - `final` is an immutable variable that can be reasigned.
 - Example:
    ```yap
    let name = "YAP"; // inferred as string
@@ -98,6 +99,7 @@ Instructions on setting up YAP:
    let existance: string? = null; // nullable string
    const version = 0.1; // inferred as float
    readonly pi = 3.14159; // inferred as float
+   final x = 0.5; 
    ```
 
 #### Type system
@@ -202,7 +204,8 @@ Instructions on setting up YAP:
         print("Hello, World!");
     }
     ```
-- Asynchronous code will be handled using `async` and `await` keywords.
+- Asynchronous code will be handled using `async` `wait` and `await` keywords.
+- `wait` can be used in non async functions
 - Example:
     ```yap
     async func main() void {
@@ -210,7 +213,6 @@ Instructions on setting up YAP:
         print(result);
     }
     ```
----
 - For nullable types, | | construct can be used after while and if statements.
 - Example:
     ```yap
@@ -221,6 +223,24 @@ Instructions on setting up YAP:
             print("Positive number");
         }
     }
+    ```
+- If you want to use safe variable in whole scope then you can use `loc` keyword
+- Example
+    ```yap
+    let x: int? = null;
+    if (x) |loc safeX|;
+
+    print(safeX);
+    if (safeX > 0) {
+        print("Positive number");
+    }
+    ```
+- `check` keyword can be used to check nullability inline
+- Example:
+    ```yap
+     let z:int? = 7;
+
+    let a:int = check z or Error("z was null");
     ```
 - Not nullable types cannot be assigned to nullable variable without this check.
 
@@ -269,16 +289,25 @@ Instructions on setting up YAP:
        }
        return x / y;
    }
-
-   func main() void {
-       let result = divide(10.0, 2.0);
-       if (result) { // result is value
-           print("Result: " + result);
-       } else if(!result) { // result is error
-           print("Error: " + result.message);
-       }
-   }
    ```
+- Handling errors from function can be done in 2 ways:
+- - if you want to forward error then use `try`
+- - Example:
+    ```yap
+    let a = 5;
+    let result = try divide(a, 0) or Error("divide function returned error");
+    // or
+    let result = try divide(a, 0) or return;
+    ```
+- - if you want to handle error use `if ||` construct
+- - Example:
+    ```yap
+    if (divide(x, y)) | result | {
+        io.print(result);
+    } else | error |  {
+        io.print(error);
+    }
+    ```
 - Functions can be defined as `async` to run asynchronously. Async function can be awaited from non async function using `wait` keyword. They can also be ran asynchronously using `await` keyword.
 - Example:
    ```yap
@@ -303,7 +332,7 @@ Instructions on setting up YAP:
 - Modules can be defined using the `module` keyword.
 - Example:
    ```yap
-   module math;
+   package math;
    func add(x: int, y: int) int {
        return x + y;
    }
@@ -316,7 +345,7 @@ Instructions on setting up YAP:
 - Every program must have main module which is the entry point of the program.
 - Example:
    ```yap
-   module main;
+   package main;
    pub func main() void {
        print("Hello, World!");
    }
@@ -327,7 +356,9 @@ Instructions on setting up YAP:
 - Public functions from other modules can be used by importing them 
 - Example:
    ```yap
+   package main;
    #import math as math
+   @import std-io as io;
    pub func main() void {
        let result = math.add(2, 3);
        print("Result: " + result);

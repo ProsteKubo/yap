@@ -2,7 +2,7 @@
   "name": "yap-lang",
   "displayName": "yap-lang",
   "description": "Syntax highlight for yap.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "engines": {
     "vscode": "^1.96.0"
   },
@@ -11,16 +11,26 @@
   ],
   "publisher": "Helgbob",
   "contributes": {
-    "languages": [{
-      "id": "yap",
-      "aliases": ["yap", "yap"],
-      "extensions": ["yap","yp"],
-      "configuration": "./language-configuration.json"
-    }],
-    "grammars": [{
-      "language": "yap",
-      "scopeName": "source.yap",
-      "path": "./syntaxes/yap.tmLanguage.json"
-    }]
+    "languages": [
+      {
+        "id": "yap",
+        "aliases": [
+          "yap",
+          "yap"
+        ],
+        "extensions": [
+          "yap",
+          "yp"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "yap",
+        "scopeName": "source.yap",
+        "path": "./syntaxes/yap.tmLanguage.json"
+      }
+    ]
   }
 }

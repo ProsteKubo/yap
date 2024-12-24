@@ -28,6 +28,9 @@ pub func main() void {
         // it is error here
         io.print(error);
     }
+    // alternativly
+    // error will be created by try expression
+    let a = try safeDivide(x, y) or io.print(error);
 
     let y = 5 + 5;
 
