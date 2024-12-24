@@ -1,0 +1,140 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "yap",
+	"patterns": [
+		{
+			"name": "comment.line.double-slash.yap",
+			"match": "//.*"
+		},
+		{
+			"name": "keyword.control.flow.yap",
+			"match": "\\b(or|if|else|for|async|await|wait|return)\\b"
+		},
+		{
+			"name": "storage.type.yap",
+			"match": "\\b(int|void|Error|Task|Task<int>)\\b"
+		},
+		{
+			"name": "keyword.declaration.yap",
+			"match": "\\b(package|func|pub|let|@import)\\b"
+		},
+		{
+			"include": "#parameters"
+		},
+		{
+			"include": "#moduleFunctions"
+		},
+		{
+			"include": "#localFunctions"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#operators"
+		},
+		{
+			"include": "#annotations"
+		}
+	],
+	"repository": {
+		"moduleFunctions": {
+			"name": "meta.module.function.yap",
+			"match": "\\b(\\w+)\\.(\\w+)\\b",
+			"captures": {
+				"1": {
+					"name": "variable.module.yap"
+				},
+				"2": {
+					"name": "entity.name.function.yap"
+				}
+			}
+		},
+		"parameters": {
+			"name": "meta.function.parameters.yap",
+			"match": "(\\w+)\\s*(:)\\s*(\\w+)",
+			"captures": {
+				"1": {
+					"name": "variable.parameter.yap"
+				},
+				"2": {
+					"name": "storage.operator.yap"
+				}, 
+				"3" : {
+					"name": "storage.type.yap"
+				}
+			}
+		},
+		"localFunctions": {
+			"name": "meta.function.yap",
+			"match": "\\b(\\w+)\\s*\\(([^)]*)\\)\\s*(\\w+(?:\\s+or\\s+\\w+)?)\\s*{",
+			"captures": {
+				"1": {
+					"name": "entity.name.function.local.yap"
+				},
+				"2": {
+					"name": "storage.type.yap",
+					"patterns": [
+						
+						{
+							"match": "(\\w+)",
+							"name": "variable.parameter.yap"
+						},
+						{
+							"match": "(:)",
+							"name": "storage.operator.yap"
+						},
+						{
+							"match": "(\\w+)",
+							"name": "storage.type.yap"
+						}
+					]
+				},
+				"3": {
+					"name": "meta.return-type.yap",
+					"patterns": [
+						{
+							"match": "(\\w+)",
+							"name": "storage.type.yap"
+						},
+						{
+							"match": "\\bor\\b",
+							"name": "keyword.control.flow.yap"
+						},
+						{
+							"match": "(\\w+)",
+							"name": "storage.type.yap"
+						}
+					]
+				}
+			}
+		},
+		"variables": {
+			"name": "variable.other.local.yap",
+			"match": "\\b(?!(func|pub|return|if|else|for|let|async|await|wait|@import|or|as|int|void|Error|Task|Task<int>))\\w+\\b"
+		},
+		"strings": {
+			"name": "string.quoted.double.yap",
+			"begin": "\"",
+			"end": "\"",
+			"patterns": [
+				{
+					"name": "constant.character.escape.yap",
+					"match": "\\\\."
+				}
+			]
+		},
+		"operators": {
+			"name": "keyword.operator.yap",
+			"match": "\\|\\||\\|\\||or|as|==|!=|<=|>=|\\+|\\-|\\*|\\/|%"
+		},
+		"annotations": {
+			"name": "meta.annotation.yap",
+			"match": "@\\w+"
+		}
+	},
+	"scopeName": "source.yap"
+}

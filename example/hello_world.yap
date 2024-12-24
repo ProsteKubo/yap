@@ -1,5 +1,7 @@
-@import std-io as io
+package main;
 
-func main() void {
+@import std-io as io;
+
+pub func main() void {
     io.print("Hello, World!");
 }
